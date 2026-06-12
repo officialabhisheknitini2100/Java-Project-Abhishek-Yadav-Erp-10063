@@ -21,13 +21,13 @@ class Car extends Vehicle {
     }
 }
 
-public class ParkingSystem {
+public class ParkingSystem1 {
 
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
-        Car[] parking = new Car[5]; // 5 parking slots
+        Vehicle[] parking = new Vehicle[3];
 
         while (true) {
 
@@ -38,72 +38,47 @@ public class ParkingSystem {
 
             int choice = sc.nextInt();
 
-            switch (choice) {
+            if (choice == 1) {
 
-                case 1:
-                    System.out.print("Enter Car ID: ");
-                    int id = sc.nextInt();
+                System.out.print("Enter Car ID: ");
+                int id = sc.nextInt();
 
-                    boolean parked = false;
-
-                    for (int i = 0; i < parking.length; i++) {
-                        if (parking[i] == null) {
-                            parking[i] = new Car(id);
-                            System.out.println("Car parked at slot " + (i + 1));
-                            parked = true;
-                            break;
-                        }
+                for (int i = 0; i < 3; i++) {
+                    if (parking[i] == null) {
+                        parking[i] = new Car(id);
+                        System.out.println("Car Parked");
+                        break;
                     }
+                }
 
-                    if (!parked) {
-                        System.out.println("Parking Full!");
+            } else if (choice == 2) {
+
+                System.out.print("Enter Car ID: ");
+                int id = sc.nextInt();
+
+                for (int i = 0; i < 3; i++) {
+                    if (parking[i] != null && parking[i].id == id) {
+                        parking[i] = null;
+                        System.out.println("Car Removed");
+                        break;
                     }
-                    break;
+                }
 
-                case 2:
-                    System.out.print("Enter Car ID to remove: ");
-                    int removeId = sc.nextInt();
+            } else if (choice == 3) {
 
-                    boolean found = false;
-
-                    for (int i = 0; i < parking.length; i++) {
-                        if (parking[i] != null && parking[i].id == removeId) {
-                            parking[i] = null;
-                            found = true;
-                            System.out.println("Car Removed");
-                            break;
-                        }
+                for (int i = 0; i < 3; i++) {
+                    if (parking[i] != null) {
+                        parking[i].display();
                     }
+                }
 
-                    if (!found) {
-                        System.out.println("Car Not Found");
-                    }
-                    break;
+            } else if (choice == 4) {
 
-                case 3:
-                    System.out.println("\nParked Cars:");
+                break;
 
-                    boolean empty = true;
+            } else {
 
-                    for (int i = 0; i < parking.length; i++) {
-                        if (parking[i] != null) {
-                            System.out.print("Slot " + (i + 1) + " -> ");
-                            parking[i].display();
-                            empty = false;
-                        }
-                    }
-
-                    if (empty) {
-                        System.out.println("Parking Empty");
-                    }
-                    break;
-
-                case 4:
-                    System.out.println("Exiting...");
-                    return;
-
-                default:
-                    System.out.println("Invalid Choice");
+                System.out.println("Invalid Choice");
             }
         }
     }
